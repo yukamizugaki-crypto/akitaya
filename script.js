@@ -31,7 +31,7 @@ navLinks.querySelectorAll('a').forEach(link => {
 });
 
 // ---- Scroll reveal animation ----
-const revealElements = document.querySelectorAll('.section-header, .about-content, .drinks-content, .reserve-card, .access-content, .intro-banner, .menu-lead');
+const revealElements = document.querySelectorAll('.section-header, .about-content, .drinks-content, .reserve-card, .access-content, .intro-banner, .menu-lead, .events-container');
 
 revealElements.forEach(el => el.classList.add('reveal'));
 
@@ -174,3 +174,53 @@ window.addEventListener('resize', () => {
     updateTrack();
   }, 200);
 });
+
+// ---- Event Auto-playing Sliders (4 seconds interval) ----
+function initEventSlider(sliderId) {
+  const slider = document.getElementById(sliderId);
+  if (!slider) return;
+
+  const slides = slider.querySelectorAll('.slide');
+  const dots = slider.querySelectorAll('.dot');
+  let slideIndex = 0;
+  let autoplayTimer;
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === index);
+    });
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+  }
+
+  function nextSlide() {
+    slideIndex = (slideIndex + 1) % slides.length;
+    showSlide(slideIndex);
+  }
+
+  function startAutoplay() {
+    autoplayTimer = setInterval(nextSlide, 4000);
+  }
+
+  function stopAutoplay() {
+    clearInterval(autoplayTimer);
+  }
+
+  // Add click events to dots for manual control
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      stopAutoplay();
+      slideIndex = index;
+      showSlide(slideIndex);
+      startAutoplay(); // Restart timer after user click
+    });
+  });
+
+  // Start automatic sliding
+  startAutoplay();
+}
+
+// Initialize sliders for both events
+initEventSlider('slider-brewery');
+initEventSlider('slider-rakugo');
