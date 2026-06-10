@@ -670,8 +670,9 @@ a {
 
 .drinks-images {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: center;
 }
 
 .drink-img-card {
@@ -683,6 +684,7 @@ a {
 .drink-img-card img {
   width: 100%;
   height: auto;
+  display: block;
   transition: transform 0.8s ease;
 }
 
@@ -1309,6 +1311,19 @@ a {
     grid-template-columns: 1fr;
     gap: 40px;
     padding: 0 24px;
+  }
+
+  .drinks-images {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .drinks-images .drink1 {
+    order: 2;
+  }
+
+  .drinks-images .drink2 {
+    order: 1;
   }
 
   .events-container {
